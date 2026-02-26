@@ -47,7 +47,7 @@ function Get-S3Logs {
 }
 
 
-
+#This function parses logs stored locally, it counts and lists entries with status 500
 function Get-500Errors {
     param (
         [Parameter(Mandatory = $true, HelpMessage = "Enter the path to your log files or the folder containing them.")]
@@ -116,6 +116,7 @@ function Get-500Errors {
 }
 
 
+#This function combines both previous functions to 1. pull IIS logs for the instance 2. parses the logs for status 500 3. Polls instance health status
 function Get-InstanceStatus500 {
     param (
         [Parameter(Mandatory = $true)]
@@ -125,8 +126,10 @@ function Get-InstanceStatus500 {
         [string]$BucketName = "iislogspowershell"
     )
     
+    #pull logs from s3
      Get-S3Logs $InstanceId $BucketName
      $extractPath = ".\ExtractedLogs\$InstanceId"
+    #process logs
      Get-500Errors $extractPath
 
     # Get all status info
@@ -147,5 +150,4 @@ function Get-InstanceStatus500 {
         }
     } | Format-Table -AutoSize
      
-
 }
