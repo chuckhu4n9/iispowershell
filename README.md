@@ -48,7 +48,7 @@ Set-ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
 
 ### Installation
 
-Download the [script file](https://github.com/chuckhu4n9/iispowershell/blob/0f7a04902746da25aad267ece830b376ea1d6073/s3IISLogParser.ps1) and copy them into a folder with correct access and permission. Navigate to the folder in PowerShell and execute:
+Download the [script file](https://github.com/chuckhu4n9/iispowershell/blob/0f7a04902746da25aad267ece830b376ea1d6073/s3IISLogParser.ps1) and copy it into a folder with correct access and permission. Navigate to the folder in PowerShell and execute:
 
 ```
 . .\s3IISLogParser.ps1
@@ -58,6 +58,8 @@ Now you can use the functions below to parse the IIS Logs.
 
 
 ### Usage
+
+The files in [logs](https://github.com/chuckhu4n9/iispowershell/tree/afe86619a4aee8f36d1f3582452cc49724440801/logs) can be used for testing local parsing function. S3 and instance status function will require AWS authentication; a current instance (instanceID); and a s3 bucket with zip file(s) under /buckname/instanceID. 
 
  - **Get-InstanceStatus500 -InstanceId**
 		Pulls IIS logs from s3 bucket for the instance, counts and displays status 500 entries as well as instances status
