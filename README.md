@@ -50,14 +50,14 @@ Now you can use the functions below to parse the IIS Logs.
 ```
 Get-InstanceStatus500 -BucketName iislogsbucket -InstanceId i-xxxxxxxxxxxxxxxx
 ```
- ![[Pasted image 20260227023857.png]]
+ ![ScreenShot](https://github.com/chuckhu4n9/iispowershell/blob/main/Pasted%20image%2020260227023857.png)
  - **Get-500Errors -LogPath**
 	Parses IIS logs on local drive, counts and displays status 500 entries
 		
 ```
 Get-500Errors -LogPath "C:\temp\iislogs"
 ```
-![[Pasted image 20260227023413.png]]
+![ScreenShot](https://github.com/chuckhu4n9/iispowershell/blob/main/Pasted%20image%2020260227023413.png)
 
  - Get-S3Logs
 	Pulls the logfiles for the specified EC2 Instance from s3
