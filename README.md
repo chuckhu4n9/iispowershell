@@ -3,6 +3,10 @@
 ### Purpose
 
 Get EC2 instance Status, pull IIS Logs from S3 bucket and parse for error 500
+Ultimately, this script should be come a part of automation workflow. With high level design below:
+
+	CloudWatch --> EventBridge --> SSM --> Powershell --> SNS or Other notification services --> Alert and results into monitored channels (email/Teams)  
+	
 
 ### Assumptions
 Some assumptions were made to produce this script. 
@@ -12,7 +16,8 @@ The IIS Logs of all instances are archived as **.zip** files to a specific S3 bu
 	Example: *bucketname/folder/*
 	iislogspowershell/i-xxxxxxxxxxxxxxxx/
 		
-It is also assumed that the archiving process is completed by another existing automation/script. 
+It is also assumed that the archiving process is completed by another existing automation/script. Lastly, it is assumed that the instances are monitored. 
+
 ## Getting Started
 
 ### Dependencies
@@ -23,13 +28,20 @@ It is also assumed that the archiving process is completed by another existing a
 ```
 	Invoke-AWSLogin
 ```
-	- [AWS IAM Access Key](https://docs.aws.amazon.com/powershell/v5/userguide/specifying-your-aws-credentials.html#managing-profiles)  
 
-- Requires correct permission where the script is executed (Does not require administrator PowerShell session)
+- [AWS IAM Access Key](https://docs.aws.amazon.com/powershell/v5/userguide/specifying-your-aws-credentials.html#managing-profiles)  
 
-- Bypass *PowerShell execution policy* (this requires administrator permissions)
-	- Example - [Unblock a script without changing the policy](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.5#example-7-unblock-a-script-to-run-it-without-changing-the-execution-policy)
-	- Example - [Bypass Policy for the current session](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.5#example-6-set-the-execution-policy-for-the-current-powershell-session)
+
+- Requires correct access permission where the script is executed (Does not require administrator PowerShell session)
+
+
+- Bypass *PowerShell execution policy* (requires administrator permissions)
+
+  - Example - [Unblock a script without changing the policy](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.5#example-7-unblock-a-script-to-run-it-without-changing-the-execution-policy)
+
+  - Example - [Bypass Policy for the current session](https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.security/set-executionpolicy?view=powershell-7.5#example-6-set-the-execution-policy-for-the-current-powershell-session)
+
+Example: Run this as Administrator to allow LocalMachine scripts
 ```
 Set-ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
 ```
@@ -43,14 +55,20 @@ Download the script files and copy them into a folder with correct access and pe
 ```
 
 Now you can use the functions below to parse the IIS Logs.
+
+
 ### Usage
 
  - **Get-InstanceStatus500 -InstanceId**
 		Pulls IIS logs from s3 bucket for the instance, counts and displays status 500 entries as well as instances status
+
 ```
 Get-InstanceStatus500 -BucketName iislogsbucket -InstanceId i-xxxxxxxxxxxxxxxx
 ```
  ![ScreenShot](https://github.com/chuckhu4n9/iispowershell/blob/main/Pasted%20image%2020260227023857.png)
+ 
+ 
+ 
  - **Get-500Errors -LogPath**
 	Parses IIS logs on local drive, counts and displays status 500 entries
 		
@@ -59,8 +77,10 @@ Get-500Errors -LogPath "C:\temp\iislogs"
 ```
 ![ScreenShot](https://github.com/chuckhu4n9/iispowershell/blob/main/Pasted%20image%2020260227023413.png)
 
+ 
  - Get-S3Logs
 	Pulls the logfiles for the specified EC2 Instance from s3
+
 
 ## Limitations
 - There is currently no dedupe, log files with the same entries will be counted and listed. 
@@ -75,15 +95,15 @@ Get-500Errors -LogPath "C:\temp\iislogs"
 
 - The script does not warn or fail when no file is downloaded from s3 (Examples: Incorrect folder name (InstanceID) or the bucket being empty). However, it does warn when no zip files are processed.
 
-- The script currently defaults to *iislogsbucket* as the s3 bucket
+- The script currently defaults to *iislogsbucket* as the s3 bucket. This is not a public bucket.
 
 ## Future Plans
 1. Improve error catching
 
 2. Further integrate the script with AWS native monitoring and alerting (CloudWatch, Event Bridge, SSM and SNS) As outlined in the description.
 
-3. Allow users to specify date ranges (with a default of 24 hours)
+3. Allow users to specify date ranges (with a default of 24 hours).
 
-4. Download from S3 will overwrite exiting files of the same name in the download folder
+4. Download from S3 will overwrite exiting files of the same name in the download folder.
 
-5. Self clean up download folder with option to clean up all working folders automatically
+5. Self clean up download folder with option to clean up all working folders automatically.
