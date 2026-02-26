@@ -2,8 +2,8 @@
 
 ### Purpose
 
-Get EC2 instance Status, pull IIS Logs from S3 bucket and parse for error 500
-Ultimately, this script should be come a part of automation workflow. With high level design below:
+The script s3IISLogParser.ps1 is used to get EC2 instance Status, pull IIS Logs from S3 bucket and parse for error 500
+Ultimately, this script should become a part of automation workflow. With the high level design below:
 
 	CloudWatch --> EventBridge --> SSM --> Powershell --> SNS or Other notification services --> Alert and results into monitored channels (email/Teams)  
 	
@@ -48,7 +48,7 @@ Set-ExecutionPolicy RemoteSigned -Scope LocalMachine -Force
 
 ### Installation
 
-Download the script files and copy them into a folder with correct access and permission. Navigate to the folder in PowerShell and execute:
+Download the [script file](https://github.com/chuckhu4n9/iispowershell/blob/0f7a04902746da25aad267ece830b376ea1d6073/s3IISLogParser.ps1) and copy them into a folder with correct access and permission. Navigate to the folder in PowerShell and execute:
 
 ```
 . .\s3IISLogParser.ps1
