@@ -75,7 +75,7 @@ Get-InstanceStatus500 -BucketName iislogsbucket -InstanceId i-xxxxxxxxxxxxxxxx
 ```
 Get-500Errors -LogPath "C:\temp\iislogs"
 ```
-![ScreenShot](https://github.com/chuckhu4n9/iispowershell/blob/main/Pasted%20image%2020260227023413.png)
+![ScreenShot](https://github.com/chuckhu4n9/iispowershell/blob/32bc5b248d99b2c5339ef5b99ec4a23f6e038e36/Pasted%20image%2020260227023413.png)
 
  
  - Get-S3Logs
