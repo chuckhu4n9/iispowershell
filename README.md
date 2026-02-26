@@ -10,7 +10,7 @@ Some assumptions were made to produce this script.
 The IIS Logs of all instances are archived as **.zip** files to a specific S3 bucket (this can be specified by the user), with the InstanceID being the folder. 
 
 	Example: *bucketname/folder/*
-		iislogspowershell/i-xxxxxxxxxxxxxxxx/
+	iislogspowershell/i-xxxxxxxxxxxxxxxx/
 		
 It is also assumed that the archiving process is completed by another existing automation/script. 
 ## Getting Started
