@@ -65,7 +65,7 @@ Now you can use the functions below to parse the IIS Logs.
 ```
 Get-InstanceStatus500 -BucketName iislogsbucket -InstanceId i-xxxxxxxxxxxxxxxx
 ```
- ![ScreenShot](https://github.com/chuckhu4n9/iispowershell/blob/main/Pasted%20image%2020260227023857.png)
+ ![ScreenShot](https://github.com/chuckhu4n9/iispowershell/blob/93c076bef727a5af8002ff01b76b9c4f52bdc7d1/Pasted%20image%2020260227023857.png)
  
  
  
